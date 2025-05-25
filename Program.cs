@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Grpc.Net.Client;
 using CriptoClientConsoleApp; // O namespace configurado no .proto
@@ -90,5 +90,22 @@ class Program
        };
        var encontrar = await client.SaldoCarteiraAsync(acharSaldo);
        Console.WriteLine(encontrar);
+
+        var simCompra = new RequestSimulacao
+        {
+            IdOrigem = "001",
+            IdDestino = "",
+            Valor = "100"
+        };
+        var simCompra2 = new RequestSimulacao
+        {
+            IdOrigem = "001",
+            IdDestino = "002",
+            Valor = "50"
+        };
+        var sim1 = await client.SimularCompraTransferenciaAsync(simCompra);
+        var sim2 = await client.SimularCompraTransferenciaAsync(simCompra2);
+        Console.WriteLine(sim1);
+        Console.WriteLine(sim2);
     }
 }
